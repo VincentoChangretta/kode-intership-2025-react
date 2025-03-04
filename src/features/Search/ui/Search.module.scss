@@ -1,0 +1,24 @@
+.search {
+    position: relative;
+}
+
+.searchIcon,
+.sortBtn {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    fill: var(--icon-color);
+    transition: 0.1s fill;
+}
+
+.searchIcon {
+    left: 15px;
+}
+
+.sortBtn {
+    right: 15px;
+}
+
+.active {
+    fill: var(--main-bg-inv);
+}

@@ -1,0 +1,23 @@
+.header {
+    padding-top: 8px;
+    margin-bottom: 16px;
+}
+
+.inner {
+    border-bottom: 1px solid var(--icon-color);
+}
+
+.headerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.title {
+    font: var(--font-weight-title) var(--font-2xl);
+}
+
+.headerSearch {
+    margin-bottom: 8px;
+}

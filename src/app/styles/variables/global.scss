@@ -1,0 +1,39 @@
+:root {
+    --main-ff: "Inter", "Montserrat", sans-serif;
+    --font-size-smallest: 13px;
+    --font-size-xs: 14px;
+    --font-size-s: 15px;
+    --font-size-base: 16px;
+    --font-size-lg: 17px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+
+    --font-weight-title: 700;
+
+    --line-height-xs: calc(var(--font-size-xs) + 10px);
+    --line-height-s: calc(var(--font-size-s) + 10px); 
+    --line-height-base: calc(var(--font-size-base) + 10px); 
+    --line-height-lg: calc(var(--font-size-lg) + 10px); 
+    --line-height-xl: calc(var(--font-size-xl) + 10px); 
+    --line-height-2xl: calc(var(--font-size-2xl) + 10px);
+
+    --font-xs: var(--font-size-xs) / var(--line-height-xs) var(--main-ff);
+    --font-s: var(--font-size-s) / var(--line-height-s) var(--main-ff);
+    --font-base: var(--font-size-base) / var(--line-height-base) var(--main-ff);
+    --font-lg: var(--font-size-lg) / var(--line-height-lg) var(--main-ff);
+    --font-xl: var(--font-size-xl) / var(--line-height-xl) var(--main-ff);
+    --font-2xl: var(--font-size-2xl) / var(--line-height-2xl) var(--main-ff);
+
+    --font-size-logo: 35px;
+
+    --std-transition: 0.3s all;
+    --std-Radius: 30px;
+
+    --header-height: 100px;
+    --small-Radius: calc(var(--std-Radius) - var(--std-padding));
+    --toggleBtnSlider-size: 20px;
+
+    // z-index
+
+    --modalBg-zIndex: 9000;
+}

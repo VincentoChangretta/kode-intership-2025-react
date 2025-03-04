@@ -1,0 +1,35 @@
+.navigationList {
+    display: flex;
+}
+
+.navigationList {
+    display: flex;
+}
+
+.navigationListItem {
+    position: relative;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.navigationListItem::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 0;
+    border-bottom: 3px solid var(--purple-color);
+    transition: 0.5s;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-bottom: 3px solid var(--purple-color);
+}

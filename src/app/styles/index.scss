@@ -1,0 +1,23 @@
+@use "./normalize.scss";
+@use "./themes/dark.scss";
+@use "./themes/light.scss";
+@use "./variables/global.scss";
+
+.app {
+    background: var(--main-bg);
+    color: var(--main-bg-inv);
+    font: var(--font-s);
+    min-height: 100svh;
+}
+
+.img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+}

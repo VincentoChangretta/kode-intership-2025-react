@@ -1,0 +1,44 @@
+.inputBox {
+    position: relative;
+    padding: 8px 12px;
+    background-color: var(--main-bg-light);
+    border-radius: 30px;
+}
+
+.input {
+    font: 500 var(--font-s);
+    background: transparent;
+    color: var(--main-bg-inv);
+}
+
+.standart {
+    padding-left: 10px;
+}
+
+.search {
+    padding-left: 32px;
+    padding-right: 55px;
+}
+
+.searchBtn {
+    position: absolute;
+    top: 50%;
+    right: 45px;
+    translate: 0 -50%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.activeBtn {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.searchBtn svg {
+    width: 14px;
+    height: 14px;
+    transition: 0.1s;
+    fill: var(--main-bg-inv);
+}

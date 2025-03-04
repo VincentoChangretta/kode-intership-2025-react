@@ -1,0 +1,15 @@
+.slider {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    translate: 0 -50%;
+    width: var(--toggleBtnSlider-size);
+    height: var(--toggleBtnSlider-size);
+    background-color: var(--main-bg);
+    border-radius: 50%;
+}
+
+.active {
+    left: auto;
+    right: 5px;
+}
