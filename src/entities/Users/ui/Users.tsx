@@ -1,55 +1,31 @@
-import { useEffect, useState } from 'react';
 import cls from './Users.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { getUsers } from '../api/getUsers/getUsers';
+import { useSelector } from 'react-redux';
+import { getUsersStateSelector } from '../model/selectors/getUsersValueSelector/getUsersStateSelector';
 
 interface UsersProps {
   className?: string;
 }
 
-interface UserSchema {
-  id: string;
-  avatarUrl: string;
-  birthday: string;
-  department: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  position: string;
-  userTag: string;
-}
+export const Users = (props: UsersProps) => {
+  const { className } = props;
+  const allUsersState = useSelector(getUsersStateSelector);
 
-export const Users = ({ className }: UsersProps) => {
-  const [users, setUsers] = useState<UserSchema[]>(null);
+  // console.log(allUsersState);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersData = await getUsers();
-        console.log(usersData);
-        setUsers(usersData);
-      } catch (error) {
-        throw new Error(error);
-      }
-    };
+  const activeDepartment = allUsersState.activeDepartment;
 
-    fetchUsers(); // Вызываем асинхронную функцию
-  }, []);
-
-  console.log(users);
+  // console.log(allUsersState.departments);
+  // console.log(allUsersState.departments[activeDepartment]);
 
   return (
     <div className={classNames(cls.usersSection, {}, [className])}>
       <ul>
-        {users?.map((user, index) => (
+        {allUsersState.departments[activeDepartment]?.map(user => (
           <li key={user.id} className={cls.user}>
             <div className={cls.userInner}>
               <div className={cls.img}>
-                <img
-                  className="img"
-                  src={'https://bstars.ru/media/djcatalog2/images/item/11/andrea-bocelli_f.jpg'}
-                  alt={`avatar-${user.firstName}`}
-                />
+                <img className="img" src={user.avatarUrl} alt={`avatar-${user.firstName}`} />
               </div>
               <div>
                 <h4 className={cls.userTitle}>

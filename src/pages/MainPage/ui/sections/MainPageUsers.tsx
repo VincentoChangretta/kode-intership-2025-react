@@ -9,7 +9,7 @@ interface MainPageUsersProps {
 export const MainPageUsers = (props: MainPageUsersProps) => {
   const { className } = props;
   return (
-    <section className={classNames(cls.MainPageUsers, {}, [className])}>
+    <section className={classNames(cls.mainPageUsers, {}, [className])}>
       <Users />
     </section>
   );

@@ -1,3 +1,7 @@
+import { UsersState } from 'entities/Users';
+
 export interface StateSchema {
-  users: '';
+  users: UsersState;
 }
+
+export const nameAram = 123;

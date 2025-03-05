@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist",  
-        "rootDir": "./src",  
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "jsx": "react-jsx",
-        "baseUrl": "./src",
-        "paths": {
-            "*": ["*"]
-        },
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
     },
-    "include": ["src/**/*"]
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"]
 }
