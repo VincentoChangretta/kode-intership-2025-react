@@ -3,7 +3,6 @@ import cls from './Header.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ThemeToggleButton } from 'shared/ui/ThemeToggleButton/ThemeToggleButton';
 import { Navigation } from 'widgets/Navigation';
-
 interface HeaderProps {
   className?: string;
 }

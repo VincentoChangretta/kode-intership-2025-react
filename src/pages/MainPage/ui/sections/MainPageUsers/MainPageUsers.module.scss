@@ -1,0 +1,5 @@
+.mainPageUsers{
+    display: flex;
+    flex-direction: column; 
+    min-height: var(--fullHeight-minusHeader);
+}

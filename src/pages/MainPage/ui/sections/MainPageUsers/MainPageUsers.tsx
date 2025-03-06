@@ -6,11 +6,14 @@ interface MainPageUsersProps {
   className?: string;
 }
 
-export const MainPageUsers = (props: MainPageUsersProps) => {
+const MainPageUsers = (props: MainPageUsersProps) => {
   const { className } = props;
+
   return (
     <section className={classNames(cls.mainPageUsers, {}, [className])}>
       <Users />
     </section>
   );
 };
+
+export default MainPageUsers;

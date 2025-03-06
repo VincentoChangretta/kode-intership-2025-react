@@ -1,3 +1,3 @@
-import { UserPageAsync as UserPage } from './ui/UserPage.async';
+import { UserPage } from './ui/UserPage';
 
 export { UserPage };

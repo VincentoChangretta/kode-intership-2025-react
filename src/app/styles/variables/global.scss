@@ -1,4 +1,5 @@
 :root {
+    //fonts
     --main-ff: "Inter", "Montserrat", sans-serif;
     --font-size-smallest: 13px;
     --font-size-xs: 14px;
@@ -11,10 +12,10 @@
     --font-weight-title: 700;
 
     --line-height-xs: calc(var(--font-size-xs) + 10px);
-    --line-height-s: calc(var(--font-size-s) + 10px); 
-    --line-height-base: calc(var(--font-size-base) + 10px); 
-    --line-height-lg: calc(var(--font-size-lg) + 10px); 
-    --line-height-xl: calc(var(--font-size-xl) + 10px); 
+    --line-height-s: calc(var(--font-size-s) + 10px);
+    --line-height-base: calc(var(--font-size-base) + 10px);
+    --line-height-lg: calc(var(--font-size-lg) + 10px);
+    --line-height-xl: calc(var(--font-size-xl) + 10px);
     --line-height-2xl: calc(var(--font-size-2xl) + 10px);
 
     --font-xs: var(--font-size-xs) / var(--line-height-xs) var(--main-ff);
@@ -26,14 +27,18 @@
 
     --font-size-logo: 35px;
 
+    //standart
     --std-transition: 0.3s all;
     --std-Radius: 30px;
 
-    --header-height: 100px;
+    //original
+    --header-height: 145px;
+    --header-marginBottom: 16px;
+    --fullHeight-minusHeader: calc(100svh - (var(--header-height) + var(--header-marginBottom)));
+    --avatar-Radius: 50%;
     --small-Radius: calc(var(--std-Radius) - var(--std-padding));
     --toggleBtnSlider-size: 20px;
 
     // z-index
-
     --modalBg-zIndex: 9000;
 }

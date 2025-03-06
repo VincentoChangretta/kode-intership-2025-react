@@ -1,0 +1,29 @@
+.usersEmptyList {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .magnifyingGlassImg {
+        max-width: 56px;
+        margin-bottom: 10px;
+    }
+
+    .textBox .title {
+        font-size: var(--font-lg);
+        text-align: center;
+    }
+
+    .textBox .text {
+        font-size: var(--font-base);
+        color: var(--color-gray);
+        text-align: center;
+    }
+}

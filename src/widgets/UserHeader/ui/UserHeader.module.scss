@@ -1,0 +1,14 @@
+.userHeader {
+    padding-top: 72px;
+    background: var(--main-bg-light);
+}
+
+.userAvatar {
+    width: 104px;
+    height: 104px;
+}
+
+.userAvatar img {
+    border-radius: var(--avatar-Radius);
+    margin-bottom: 24px;
+}

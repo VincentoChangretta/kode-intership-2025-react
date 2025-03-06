@@ -1,7 +1,7 @@
 import { useInput } from 'shared/hooks/useInput';
 import cls from './Input.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { InputHTMLAttributes, useEffect } from 'react';
+import React, { InputHTMLAttributes, useCallback, useEffect } from 'react';
 import { Button, ButtonTheme } from '../Button/Button';
 
 export enum InputVariations {
@@ -14,15 +14,38 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   classname?: string;
   variation: InputVariations;
   setIsActive?: (prev: boolean) => void;
+  searchFilter?: (searchValue: string) => void;
 }
 
 export const Input = (props: InputProps) => {
-  const { boxClassName, className, variation, type, setIsActive, ...otherProps } = props;
+  const { boxClassName, className, variation, type, setIsActive, searchFilter, ...otherProps } =
+    props;
   const { value, onChange, reset } = useInput();
 
   useEffect(() => {
     value ? setIsActive(true) : setIsActive(false);
   }, [value, setIsActive]);
+
+  const handleOnChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, resetFunc?: () => void) => {
+      if (resetFunc) {
+        resetFunc();
+      }
+      const currentValue = e.target.value;
+      onChange(e);
+      if (searchFilter) {
+        searchFilter(currentValue);
+      }
+    },
+    [onChange, searchFilter],
+  );
+
+  const handeResetSearch = useCallback(() => {
+    reset();
+    if (searchFilter) {
+      searchFilter('');
+    }
+  }, [reset, searchFilter]);
 
   const inputType = type === '' ? 'text' : type;
   const inputMods: Record<string, boolean | string> = {
@@ -37,7 +60,7 @@ export const Input = (props: InputProps) => {
       <input
         type={inputType}
         value={value}
-        onChange={onChange}
+        onChange={handleOnChange}
         className={classNames(cls.input, inputMods, [className])}
         {...otherProps}
       />
@@ -45,7 +68,7 @@ export const Input = (props: InputProps) => {
         <Button
           className={classNames(cls.searchBtn, searchBtnMods, [])}
           theme={ButtonTheme.ICON}
-          onClick={reset}
+          onClick={handeResetSearch}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />

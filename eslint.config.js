@@ -27,7 +27,6 @@ export default [
       'prettier/prettier': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      indent: ['error', 2],
       'no-undef': 'warn',
       'react/react-in-jsx-scope': 'off',
       'no-unused-vars': 'warn',

@@ -1,6 +1,7 @@
 .header {
     padding-top: 8px;
-    margin-bottom: 16px;
+    margin-bottom: var(--header-marginBottom);
+    min-height: var(--header-height);
 }
 
 .inner {

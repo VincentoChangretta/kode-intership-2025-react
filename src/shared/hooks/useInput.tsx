@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
-export const useInput = (initialValue = '') => {
-  const [value, setValue] = useState(initialValue);
+export const useInput = <T = string,>(initialValue: T = '' as T) => {
+  const [value, setValue] = useState<T>(initialValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setValue(e.target.value as T);
   };
 
   const reset = () => {
-    setValue('');
+    setValue('' as T);
   };
 
   return {

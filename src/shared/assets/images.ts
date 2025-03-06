@@ -1,3 +1,3 @@
-import searchIconImg from "../../../public/img/search-icon.svg"
+import magnifyingGlass from './img/glass.png';
 
-export {searchIconImg}
+export { magnifyingGlass };

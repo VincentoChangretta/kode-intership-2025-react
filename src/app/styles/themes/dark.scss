@@ -1,10 +1,9 @@
-.app.dark{
+.dark_theme {
     --main-bg: #1a1a1a;
     --main-bg-light: #272727;
-    --main-bg-lightMore: #363636;
     --main-bg-inv: #fff;
-    --main-bg-inv-light: #ececec;
-    --main-bg-inv-doubleLight: #d4d4d4;
     --icon-color: rgb(67, 67, 67);
+    --color-gray: rgb(151, 151, 155);
     --purple-color: rgb(101, 52, 255);
+    --loading-gradient: linear-gradient(90deg, rgb(38, 38, 38), rgb(48, 48, 48) 100%);
 }

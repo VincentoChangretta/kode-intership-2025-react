@@ -1,0 +1,28 @@
+.listUserCardLoader {
+    display: flex;
+    align-items: center;
+}
+
+.imgLoader,
+.titleLoader,
+.textLoader {
+    background: var(--loading-gradient);
+}
+
+.imgLoader {
+    width: 72px;
+    height: 72px;
+    margin: 6px 16px 6px 0;
+    border-radius: var(--avatar-Radius);
+}
+.titleLoader {
+    width: 145px;
+    height: 16px;
+    margin-bottom: 6px;
+    border-radius: var(--std-Radius);
+}
+.textLoader {
+    width: 80px;
+    height: 16px;
+    border-radius: var(--std-Radius);
+}

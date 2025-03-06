@@ -1,8 +1,10 @@
 import { Input, InputVariations } from 'shared/ui/Input/Input';
 import cls from './Search.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsersStateSelector, usersActions } from 'entities/Users';
 
 interface SearchProps {
   className?: string;
@@ -11,6 +13,16 @@ interface SearchProps {
 export const Search = (props: SearchProps) => {
   const { className } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const allUsersState = useSelector(getUsersStateSelector);
+
+  const filterUsers = useCallback(
+    (searchValue: string) => {
+      console.log(searchValue);
+      dispatch(usersActions.setSearchInUsers(searchValue));
+    },
+    [dispatch],
+  );
 
   return (
     <div className={classNames(cls.search, {}, [className])}>
@@ -19,6 +31,7 @@ export const Search = (props: SearchProps) => {
         type="search"
         setIsActive={setIsActive}
         placeholder="Введи имя, тег, почту..."
+        searchFilter={filterUsers}
       />
       <svg
         className={classNames(cls.searchIcon, { [cls.active]: isActive }, [])}

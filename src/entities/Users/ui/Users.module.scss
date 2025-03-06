@@ -1,30 +1,4 @@
 .user {
 }
 
-.userInner {
-    display: flex;
-    align-items: center;
-}
 
-.userTitle {
-    font-size: 500 var(--font-s);
-}
-
-.userTag {
-    margin-left: 4px;
-    font-weight: 400;
-    color: var(--icon-color);
-}
-
-.userPosition {
-    font-size: var(--font-size-smallest);
-}
-
-.img {
-    width: 88px;
-    height: 84px;
-    padding: 6px 16px 6px 0;
-    img {
-        border-radius: 50%;
-    }
-}
