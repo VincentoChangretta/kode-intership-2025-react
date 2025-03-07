@@ -1,14 +1,51 @@
 .userHeader {
     padding-top: 72px;
+    padding-bottom: 24px;
     background: var(--main-bg-light);
+    margin-bottom: 15px;
+}
+
+.toBack {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    fill: var(--main-bg-inv);
+}
+
+.inner {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .userAvatar {
     width: 104px;
     height: 104px;
+    margin: 0 auto 24px;
 }
 
 .userAvatar img {
     border-radius: var(--avatar-Radius);
     margin-bottom: 24px;
+}
+
+.textBox {
+    text-align: center;
+}
+
+.textBox .title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font: var(--font-weight-title) var(--font-2xl);
+}
+
+.textBox .userPosition {
+    font: var(--font-smallest);
+    color: var(--color-gray-secondary);
+}
+
+.textBox .title .userTag {
+    font: var(--font-lg);
+    color: var(--color-gray);
 }
