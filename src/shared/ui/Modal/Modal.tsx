@@ -18,10 +18,15 @@ export const Modal = (props: ModalProps) => {
     }
   };
 
-  if (!isActive) return null;
   return (
-    <div className={classNames(cls.modalBg, {}, [])} onClick={closeHandler}>
-      <div className={classNames(cls.modal, {}, [className])} onClick={e => e.stopPropagation()}>
+    <div
+      className={classNames(cls.modalBg, { [cls.modalBgActive]: isActive }, [])}
+      onClick={closeHandler}
+    >
+      <div
+        className={classNames(cls.modal, { [cls.modalActive]: isActive }, [className])}
+        onClick={e => e.stopPropagation()}
+      >
         {children}
       </div>
     </div>

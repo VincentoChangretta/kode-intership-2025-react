@@ -1,4 +1,3 @@
-// formatDate.test.ts
 import { formatDate } from './formatDate';
 
 describe('formatDate', () => {

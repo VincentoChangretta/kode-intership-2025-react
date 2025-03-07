@@ -22,3 +22,12 @@
 .active {
     fill: var(--main-bg-inv);
 }
+
+.modal {
+    max-width: 380px;
+    padding: 21px 16px;
+}
+
+.sortBtnActive {
+    fill: var(--purple-color) !important;
+}

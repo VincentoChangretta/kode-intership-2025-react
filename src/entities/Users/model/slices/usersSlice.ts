@@ -5,7 +5,13 @@ import {
   departmentDetails,
 } from 'shared/config/navDepartmentConfig/navDepartmentConfig';
 
+export enum SortTypes {
+  alphabetically = 'alphabetically',
+  byDate = 'byDate',
+}
+
 export interface UsersState {
+  sortBy: SortTypes;
   isLoading: boolean;
   searchInUsers: string;
   activeDepartment: AllDepartments;
@@ -17,6 +23,7 @@ export interface UsersState {
 
 const initialState: UsersState = {
   isLoading: null,
+  sortBy: SortTypes.alphabetically,
   searchInUsers: '',
   activeDepartment: null,
   departments: {
@@ -74,6 +81,9 @@ export const usersSlice = createSlice({
     //  для состояния загрузки
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
+    },
+    setSortBy(state, action: PayloadAction<SortTypes>) {
+      state.sortBy = action.payload;
     },
   },
 });

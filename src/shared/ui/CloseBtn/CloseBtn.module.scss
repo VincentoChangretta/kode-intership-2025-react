@@ -1,0 +1,16 @@
+.closeBtn {
+    width: 24px;
+    height: 24px;
+    background: var(--main-bg-light);
+    border-radius: 50%;
+    transition: var(--std-transition);
+}
+.closeBtn svg {
+    width: 10px;
+    height: 10px;
+    fill: var(--color-gray);
+}
+
+.closeBtn:hover {
+    rotate: 90deg;
+}
