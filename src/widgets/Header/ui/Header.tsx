@@ -9,6 +9,7 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   const { className } = props;
+
   return (
     <header className={classNames(cls.header, {}, [className])}>
       <div className="container">
