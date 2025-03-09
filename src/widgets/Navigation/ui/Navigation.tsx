@@ -1,6 +1,6 @@
 import cls from './Navigation.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getUsers } from 'entities/Users/api/getUsers/getUsers';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersActions } from 'entities/Users/model/slices/usersSlice';
@@ -15,6 +15,7 @@ import {
 import { getUsersStateSelector } from 'entities/Users';
 import { getStoredCacheTime } from 'shared/lib/getStorageCacheTime/getStorageCacheTime';
 import { saveTimeToLocalStorage } from 'shared/lib/saveTimeToLocalStorage/saveTimeToLocalStorage';
+import { saveDataToLocalStorage } from 'shared/lib/saveDataToLocalStore/saveDataToLocalStore';
 
 interface NavigationProps {
   className?: string;
@@ -25,40 +26,68 @@ export const Navigation = (props: NavigationProps) => {
   const dispatch = useDispatch();
   const [activeDepartment, setActiveDepartment] = useState<departmentArrTypes>(departmentArr[0]);
   const allUsersState = useSelector(getUsersStateSelector);
+  const hasFetchedRef = useRef<boolean>(false); // Флаг, чтобы избежать повторной загрузки данных
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const timerLost = getStoredCacheTime(activeDepartment.link as AllDepartments);
+      if (hasFetchedRef.current) return;
 
-      // Если нет данных в Redux или данные устарели
-      if (timerLost || !allUsersState.departments[activeDepartment.link]) {
+      const timerLost = getStoredCacheTime(activeDepartment.link as AllDepartments);
+      let storedData = localStorage.getItem(`data-${activeDepartment.link}`);
+      const timeNow: number = new Date().getTime();
+      const storedDataTime = localStorage.getItem(activeDepartment.link);
+
+      // Проверка времени кеширования
+      if (storedDataTime && (timeNow - Number(storedDataTime)) / 60 / 1000 > 5) {
+        // Если прошло больше 5 минут, данные считаются устаревшими
+        console.log('Данные устарели - идет очистка кэша...');
+        localStorage.removeItem(activeDepartment.link);
+        localStorage.removeItem(`data-${activeDepartment.link}`);
+        storedData = null; // Явно сбрасываем storedData
+        dispatch(
+          usersActions.setUsersByDepartment(
+            updateDepartmentUsers(departmentDetails[activeDepartment.link].link, []),
+          ),
+        );
+        hasFetchedRef.current = false; // Сбрасываем флаг для нового запроса
+      }
+
+      // Если данные устарели или их нет в localStorage, делаем запрос
+      if (!storedData) {
+        console.log('Данные отсутствуют в localStorage, запрашиваем с сервера...');
         try {
           dispatch(usersActions.setIsLoading(true));
           const usersData: UserSchema[] = await getUsers(activeDepartment.link);
-
-          if (activeDepartment.link === departmentDetails.all.link) {
-            dispatch(usersActions.setUsers(usersData));
-          } else {
-            dispatch(
-              usersActions.setUsersByDepartment(
-                updateDepartmentUsers(departmentDetails[activeDepartment.link].link, usersData),
-              ),
-            );
-          }
+          dispatch(
+            usersActions.setUsersByDepartment(
+              updateDepartmentUsers(departmentDetails[activeDepartment.link].link, usersData),
+            ),
+          );
           dispatch(
             usersActions.setActiveDepartmentKey(departmentDetails[activeDepartment.link].link),
           );
           dispatch(usersActions.setIsLoading(false));
+          // Сохраняем новые данные в localStorage
           saveTimeToLocalStorage(activeDepartment.link as AllDepartments);
+          saveDataToLocalStorage(activeDepartment.link, usersData);
+          hasFetchedRef.current = true; // Данные загружены, теперь флаг в true
         } catch (error) {
           dispatch(usersActions.setIsLoading(false));
-          throw new Error(error);
+          console.error(error);
         }
       } else {
-        // если данные есть
+        // Если данные есть в localStorage и они актуальны
+        console.log('Используются данные из кэша');
+        const parsedStoredData = JSON.parse(storedData);
+        dispatch(
+          usersActions.setUsersByDepartment(
+            updateDepartmentUsers(departmentDetails[activeDepartment.link].link, parsedStoredData),
+          ),
+        );
         dispatch(
           usersActions.setActiveDepartmentKey(departmentDetails[activeDepartment.link].link),
         );
+        hasFetchedRef.current = true; // Данные загружены, теперь флаг в true
       }
     };
 
@@ -67,6 +96,7 @@ export const Navigation = (props: NavigationProps) => {
 
   const handleClick = (route: departmentArrTypes) => {
     setActiveDepartment(route);
+    hasFetchedRef.current = false; // сбрасываем флаг, чтобы данные перезагружались при следующем переходе
   };
 
   return (
