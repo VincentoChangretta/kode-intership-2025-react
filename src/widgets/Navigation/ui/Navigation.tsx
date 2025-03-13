@@ -33,13 +33,16 @@ export const Navigation = (props: NavigationProps) => {
   const [activeDepartment, setActiveDepartment] = useState<departmentArrTypes>(
     departmentDetails[allUsersState.activeDepartment] || departmentArr[0],
   );
+  const currentDepartmentUsersData = allUsersState.departments[activeDepartment.link];
+  const hasFetchedData = allUsersState.hasFetched;
+
   const isOffline = useNetworkStatus();
   const { t } = useTranslation('navigation');
 
   const fetchUsers = async () => {
     if (hasFetchedRef.current) return;
+    dispatch(usersActions.setIsLoading(true));
 
-    // const timerLost = getStoredCacheTime(activeDepartment.link as AllDepartments);
     let storedData = localStorage.getItem(`data-${activeDepartment.link}`);
     const timeNow: number = new Date().getTime();
     const storedDataTime = localStorage.getItem(activeDepartment.link);
@@ -63,29 +66,29 @@ export const Navigation = (props: NavigationProps) => {
     if (!storedData) {
       console.log('Данные отсутствуют в localStorage, запрашиваем с сервера...');
       try {
-        dispatch(usersActions.setIsLoading(true));
-        const usersData: UserSchema[] | string = await getUsers(activeDepartment.link);
+        const usersData: UserSchema[] | string = await getUsers(
+          activeDepartment.link,
+          currentDepartmentUsersData,
+          activeDepartment,
+        );
         if (usersData === FETCH_ERROR) {
           dispatch(usersActions.setHasFetched(false));
         } else {
           let sortedArr: UserSchema[] = [];
           sortedArr = sortUsersBy(sortBy, sortedArr, usersData as UserSchema[]);
-          // dispatch(
-          //   usersActions.setActiveDepartmentKey(departmentDetails[activeDepartment.link].link),
-          // );
+          dispatch(usersActions.setHasFetched(true));
           dispatch(
             usersActions.setUsersByDepartment(
               updateDepartmentUsers(departmentDetails[activeDepartment.link].link, sortedArr),
             ),
           );
-          dispatch(usersActions.setIsLoading(false));
+
           // Сохраняем новые данные в localStorage
           saveTimeToLocalStorage(activeDepartment.link as AllDepartments);
           saveDataToLocalStorage(activeDepartment.link, sortedArr);
           hasFetchedRef.current = true; // Данные загружены, теперь флаг в true
         }
       } catch (error) {
-        dispatch(usersActions.setIsLoading(false));
         console.error(error);
       }
     } else {
@@ -97,8 +100,9 @@ export const Navigation = (props: NavigationProps) => {
           updateDepartmentUsers(departmentDetails[activeDepartment.link].link, parsedStoredData),
         ),
       );
-      //
-      // dispatch(usersActions.setActiveDepartmentKey(departmentDetails[activeDepartment.link].link));
+      if (!hasFetchedData) {
+        dispatch(usersActions.setHasFetched(true));
+      }
       hasFetchedRef.current = true; // Данные загружены, теперь флаг в true
     }
   };
@@ -106,17 +110,25 @@ export const Navigation = (props: NavigationProps) => {
   useEffect(() => {
     fetchUsers();
     dispatch(usersActions.setActiveDepartmentKey(departmentDetails[activeDepartment.link].link));
-  }, [activeDepartment, dispatch, allUsersState.departments, isOffline]);
+  }, [activeDepartment, dispatch, allUsersState.departments]);
 
   useEffect(() => {
-    if (isOffline) {
-      hasFetchedRef.current = false;
+    hasFetchedRef.current = false;
+    if (!isOffline) {
+      fetchUsers();
     }
   }, [isOffline]);
 
+  useEffect(() => {
+    // отключаем в зависимости от актуальных пользователей, чтобы работал условный рендеринг в getUsers
+    if (currentDepartmentUsersData.length) {
+      dispatch(usersActions.setIsLoading(false));
+    }
+  }, [currentDepartmentUsersData]);
+
   const handleClick = (route: departmentArrTypes) => {
     setActiveDepartment(route);
-    hasFetchedRef.current = false; // сбрасываем флаг, чтобы данные перезагружались при следующем переходе
+    hasFetchedRef.current = false;
   };
 
   return (

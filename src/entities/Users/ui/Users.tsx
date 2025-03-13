@@ -129,7 +129,10 @@ export const Users = (props: UsersProps) => {
   }, [activeDepartment]);
 
   if (hasFetchedData === false) return <FetchError />;
-  if (currentDepartmentUsersDataArray?.length === 0 && !isLoading) return <UsersEmptyList />;
+
+  if (currentDepartmentUsersDataArray?.length === 0 && !isLoading) {
+    return <UsersEmptyList />;
+  }
 
   return (
     <div className={classNames(cls.usersSection, {}, [className])}>

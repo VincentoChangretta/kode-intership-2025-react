@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 interface OfflinePreloaderProps {
   className?: string;
+  setIsOffline?: (prev: boolean) => void;
 }
 
 export const NetworkStatusPreloader = (props: OfflinePreloaderProps) => {
-  const { className } = props;
+  const { className, setIsOffline } = props;
   const { t } = useTranslation();
 
   const isOffline = useNetworkStatus();
@@ -18,8 +19,9 @@ export const NetworkStatusPreloader = (props: OfflinePreloaderProps) => {
   useEffect(() => {
     if (isOffline) {
       setWasOffline(true);
+      setIsOffline(true);
     } else if (wasOffline) {
-      const timer = setTimeout(() => setWasOffline(false), 1500); // для плавной анимациии ставим задержку
+      const timer = setTimeout(() => (setWasOffline(false), setIsOffline(false)), 1500); // для плавной анимациии ставим задержку
       return () => clearTimeout(timer);
     }
   }, [isOffline, wasOffline]);

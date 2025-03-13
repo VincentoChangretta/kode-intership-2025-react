@@ -1,8 +1,14 @@
 import axios from 'axios';
+import { UserSchema } from 'entities/Users/model/types/userSchema';
+import { departmentArrTypes } from 'shared/config/navDepartmentConfig/navDepartmentConfig';
 
 export const FETCH_ERROR: string = 'fetch_error';
 
-export const getUsers = async (departament: string = 'all') => {
+export const getUsers = async (
+  departament: string = 'all',
+  currentDepartmentUsersData: UserSchema[],
+  activeDepartment: departmentArrTypes,
+) => {
   try {
     const res = await axios.get(
       `https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${departament}`,
@@ -13,6 +19,8 @@ export const getUsers = async (departament: string = 'all') => {
     return res.data.items;
   } catch (error) {
     console.error('Ошибка:', error.message);
-    return FETCH_ERROR;
+    if (!currentDepartmentUsersData.length && !localStorage.getItem(`data-${activeDepartment}`)) {
+      return FETCH_ERROR;
+    }
   }
 };
