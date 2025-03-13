@@ -6,6 +6,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { getUsersStateSelector } from 'entities/Users';
 import { SortTypes, usersActions } from 'entities/Users/model/slices/usersSlice';
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SearchSortProps {
   className?: string;
@@ -17,20 +18,24 @@ const sortVariations = [
   { id: SortTypes.byDate, name: 'По дню рождения' },
 ];
 
+export const localStoreSortBy = 'sortBy';
+
 export const SearchSort = (props: SearchSortProps) => {
   const { className, modalOnClose } = props;
   const dispatch = useDispatch();
   const allUsersState = useSelector(getUsersStateSelector);
+  const { t } = useTranslation();
 
   const handleChangeSortType = useCallback((sortBy: SortTypes) => {
     dispatch(usersActions.setSortBy(sortBy));
+    localStorage.setItem(localStoreSortBy, sortBy);
     modalOnClose(false);
   }, []);
 
   return (
     <article className={classNames(cls.SearchSort, {}, [className])}>
       <div className={cls.titleBox}>
-        <h4 className={cls.title}>Сортировка</h4>
+        <h4 className={cls.title}>{t('Сортировка')}</h4>
         <CloseBtn className={cls.closeBtn} onClose={modalOnClose} />
       </div>
       <div className={cls.inputBox}>
@@ -39,7 +44,7 @@ export const SearchSort = (props: SearchSortProps) => {
             key={sortInput.id}
             name="sort"
             checked={allUsersState.sortBy === sortInput.id}
-            label={sortInput.name}
+            label={t(sortInput.name)}
             onClick={() => handleChangeSortType(sortInput.id)}
           />
         ))}

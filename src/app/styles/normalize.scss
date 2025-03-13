@@ -21,6 +21,8 @@ button {
     border: none;
     outline: 1px solid transparent;
     width: 100%;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 input[type="search"]::-webkit-search-decoration,

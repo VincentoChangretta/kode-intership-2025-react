@@ -12,18 +12,21 @@ export enum SortTypes {
 
 export interface UsersState {
   sortBy: SortTypes;
+  hasFetched: boolean;
   isLoading: boolean;
   searchInUsers: string;
   activeDepartment: AllDepartments;
   departments: {
     [key in keyof typeof departmentDetails]: UserSchema[];
   };
+  prevDepartmentData: UserSchema[];
   activeUser: UserSchema;
 }
 
 const initialState: UsersState = {
+  hasFetched: null,
   isLoading: null,
-  sortBy: SortTypes.alphabetically,
+  sortBy: (localStorage.getItem('sortBy') as SortTypes) || SortTypes.alphabetically,
   searchInUsers: '',
   activeDepartment: null,
   departments: {
@@ -41,6 +44,7 @@ const initialState: UsersState = {
     [AllDepartments.Support]: [],
     [AllDepartments.Analytics]: [],
   },
+  prevDepartmentData: [],
   activeUser: null,
 };
 
@@ -70,6 +74,10 @@ export const usersSlice = createSlice({
         state.departments[department] = users;
       }
     },
+    // прошлое состояние активного департамента
+    setPrevDepartmentData(state, action: PayloadAction<UserSchema[]>) {
+      state.prevDepartmentData = action.payload;
+    },
     //  для поиска
     setSearchInUsers(state, action: PayloadAction<string>) {
       state.searchInUsers = action.payload;
@@ -83,7 +91,11 @@ export const usersSlice = createSlice({
       state.isLoading = action.payload;
     },
     setSortBy(state, action: PayloadAction<SortTypes>) {
+      localStorage.setItem('sortBy', action.payload);
       state.sortBy = action.payload;
+    },
+    setHasFetched(state, action: PayloadAction<boolean>) {
+      state.hasFetched = action.payload;
     },
   },
 });

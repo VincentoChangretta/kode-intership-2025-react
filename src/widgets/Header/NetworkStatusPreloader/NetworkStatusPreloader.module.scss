@@ -1,0 +1,33 @@
+.offlinePreloader {
+    padding: 64px 16px 0;
+    position: absolute;
+    top: -20px;
+    right: -100vh;
+    left: -100vh;
+    bottom: 0;
+    color: #fff;
+    transition: var(--std-transition);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+.inner {
+    position: absolute;
+    left: 0;
+    top: 44px;
+}
+
+.online,
+.offline {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.online {
+    background-color: var(--purple-color);
+}
+
+.offline {
+    background-color: var(--color-errorRed);
+}

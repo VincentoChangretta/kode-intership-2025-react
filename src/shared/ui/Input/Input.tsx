@@ -12,14 +12,23 @@ export enum InputVariations {
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   boxClassName?: string;
   classname?: string;
+  stateValue?: string;
   variation: InputVariations;
   setIsActive?: (prev: boolean) => void;
   searchFilter?: (searchValue: string) => void;
 }
 
 export const Input = (props: InputProps) => {
-  const { boxClassName, className, variation, type, setIsActive, searchFilter, ...otherProps } =
-    props;
+  const {
+    boxClassName,
+    className,
+    variation,
+    type,
+    setIsActive,
+    searchFilter,
+    stateValue,
+    ...otherProps
+  } = props;
   const { value, onChange, reset } = useInput();
 
   useEffect(() => {
@@ -52,14 +61,14 @@ export const Input = (props: InputProps) => {
     [cls[variation]]: true,
   };
   const searchBtnMods: Record<string, boolean | string> = {
-    [cls.activeBtn]: variation === InputVariations.SEARCH && value,
+    [cls.activeBtn]: variation === InputVariations.SEARCH && stateValue,
   };
 
   return (
     <div className={classNames(cls.inputBox, {}, [boxClassName])}>
       <input
         type={inputType}
-        value={value}
+        value={stateValue}
         onChange={handleOnChange}
         className={classNames(cls.input, inputMods, [className])}
         {...otherProps}

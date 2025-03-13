@@ -1,51 +1,60 @@
+import i18n from 'shared/config/i18n/i18n';
 import { formatDate } from './formatDate';
 
+const t = i18n.t;
+
+const testCases = [
+  { date: '1973-01-24', expected: '24 января 1973' },
+  { date: '1996-06-05', expected: '5 июня 1996' },
+  { date: '2023-04-09', expected: '9 апреля 2023' },
+  { date: '2020-12-31', expected: '31 декабря 2020' },
+  { date: '2025-03-07', expected: '7 марта 2025' },
+  { date: '2022-05-15', expected: '15 мая 2022' },
+  { date: '2020-07-01', expected: '1 июля 2020' },
+  { date: '2023-11-01', expected: '1 ноября 2023' },
+];
+
 describe('formatDate', () => {
-  test('date "1973-01-24" as "24 января 1973"', () => {
-    const result = formatDate('1973-01-24');
-    expect(result).toBe('24 января 1973');
+  testCases.forEach(({ date, expected }) => {
+    test('корректные даты', () => {
+      const result = formatDate(date, t);
+      expect(result).toBe(expected);
+    });
   });
 
-  test('date "1996-06-05" as "5 июня 1996"', () => {
-    const result = formatDate('1996-06-05');
-    expect(result).toBe('5 июня 1996');
+  test('пустая строка', () => {
+    const result = formatDate('', t);
+    expect(result).toBe('');
+  });
+  test('пустая строка', () => {
+    const result = formatDate('', t);
+    expect(result).not.toBe('Ошибка даты');
+  });
+  test('пустая строка', () => {
+    const result = formatDate('', t);
+    expect(result).not.toBe(NaN);
   });
 
-  test('date "2023-04-09" as "9 апреля 2023"', () => {
-    const result = formatDate('2023-04-09');
-    expect(result).toBe('9 апреля 2023');
+  test('неправильное значение', () => {
+    const result = formatDate('sad-ead-gh', t);
+    expect(result).toBe('Ошибка даты');
   });
 
-  test('date "2020-12-31" as "31 декабря 2020"', () => {
-    const result = formatDate('2020-12-31');
-    expect(result).toBe('31 декабря 2020');
+  test('неправильное значение', () => {
+    const result = formatDate('sad-ead-gh', t);
+    expect(result).not.toBe('');
+  });
+  test('неправильное значение', () => {
+    const result = formatDate('sad-ead-gh', t);
+    expect(result).not.toBe(NaN);
   });
 
-  test('date "2020-01-01" as "1 января 2020"', () => {
-    const result = formatDate('2020-01-01');
-    expect(result).toBe('1 января 2020');
+  test('неправильный формат даты 2023-13-40 ', () => {
+    const result = formatDate('2023-13-40', t);
+    expect(result).not.toBe('');
   });
-
-  test('the date "2000-12-31" as "31 января 2000"', () => {
-    const result = formatDate('2000-12-31');
-    expect(result).not.toBe('31 января 2000');
-  });
-  test('the date "2025-03-07" as "7 января 2025"', () => {
-    const result = formatDate('2025-03-07');
-    expect(result).not.toBe('7 января 2025');
-  });
-
-  test('date "2022-05-15" as "15 мая 2022"', () => {
-    const result = formatDate('2022-05-15');
-    expect(result).toBe('15 мая 2022');
-  });
-
-  test('the date "2020-07-01" as "1 июня 2020"', () => {
-    const result = formatDate('2020-07-01');
-    expect(result).not.toBe('1 июня 2020');
-  });
-  test('date "2023-11-01" as "1 ноября 2023"', () => {
-    const result = formatDate('2023-11-01');
-    expect(result).toBe('1 ноября 2023');
+  test('неправильный формат даты 2023-13-40 ', () => {
+    const result = formatDate('2023-13-40', t);
+    expect(result).not.toBe(NaN);
   });
 });

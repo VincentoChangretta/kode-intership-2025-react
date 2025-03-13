@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const FETCH_ERROR: string = 'fetch_error';
+
 export const getUsers = async (departament: string = 'all') => {
   try {
     const res = await axios.get(
@@ -11,6 +13,6 @@ export const getUsers = async (departament: string = 'all') => {
     return res.data.items;
   } catch (error) {
     console.error('Ошибка:', error.message);
-    throw error;
+    return FETCH_ERROR;
   }
 };

@@ -32,6 +32,7 @@
     //standart
     --std-transition: 0.3s all;
     --std-Radius: 30px;
+    --std-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 
     //original
     --header-height: 145px;
@@ -46,4 +47,5 @@
 
     //colors
     --color-blackAlpha: rgba(0, 0, 0, 0.5);
+    --color-errorRed: #f44336;
 }

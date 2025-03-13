@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, useCallback, useState } from 'react';
-import { Button, ButtonTheme } from '../Button/Button';
 import cls from './ThemeToggleButton.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 
 interface ThemeToggleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;

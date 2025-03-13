@@ -1,0 +1,15 @@
+{
+  "Все": "All",
+  "Android": "Android",
+  "iOS": "iOS",
+  "Дизайн": "Design",
+  "Менеджмент": "Management",
+  "QA": "QA",
+  "Бэк-офис": "Back Office",
+  "Frontend": "Frontend",
+  "HR": "HR",
+  "PR": "PR",
+  "Backend": "Backend",
+  "Техподдержка": "Support",
+  "Аналитика": "Analytics"
+}

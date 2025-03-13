@@ -1,0 +1,44 @@
+.fetchError {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--header-marginBottom);
+
+    .ufoImg {
+        display: flex;
+        max-width: 56px;
+        margin-bottom: 10px;
+    }
+
+    .textBox {
+        text-align: center;
+    }
+
+    .title {
+        font: var(--font-lg);
+    }
+
+    .text {
+        font: var(--font-base);
+        color: var(--color-gray);
+    }
+    .try {
+        font: 600 var(--font-base);
+        color: var(--purple-color);
+        transition: var(--std-transition);
+        &:hover {
+            border-radius: var(--std-Radius);
+            background-color: var(--purple-color);
+            color: var(--main-bg);
+            scale: 0.95;
+        }
+    }
+}

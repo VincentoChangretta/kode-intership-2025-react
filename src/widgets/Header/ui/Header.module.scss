@@ -1,7 +1,9 @@
 .header {
+    position: relative;
     padding-top: 8px;
     margin-bottom: var(--header-marginBottom);
     min-height: var(--header-height);
+    overflow: hidden;
 }
 
 .inner {
@@ -9,6 +11,10 @@
 }
 
 .headerTop {
+    position: relative;
+}
+
+.headerTopInner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,9 +22,17 @@
 }
 
 .title {
+    position: relative;
+    z-index: 50;
     font: var(--font-weight-title) var(--font-2xl);
 }
 
 .headerSearch {
     margin-bottom: 8px;
+}
+
+.headerUtils {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

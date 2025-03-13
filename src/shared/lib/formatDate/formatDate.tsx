@@ -1,4 +1,14 @@
-export const formatDate = (dateString: string): string => {
+import { TFunction } from 'i18next';
+
+export const formatDate = (dateString: string, t: TFunction): string => {
+  if (!dateString.length) return '';
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return t('Ошибка даты');
+  }
+
   const months: string[] = [
     'января',
     'февраля',
@@ -14,10 +24,9 @@ export const formatDate = (dateString: string): string => {
     'декабря',
   ];
 
-  const date = new Date(dateString);
   const day = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear();
 
-  return `${day} ${month} ${year}`;
+  return `${day} ${t(month)} ${year}`;
 };

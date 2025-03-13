@@ -1,13 +1,15 @@
 import { Input, InputVariations } from 'shared/ui/Input/Input';
-import cls from './Search.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useCallback, useEffect, useState } from 'react';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { useDispatch } from 'react-redux';
-import { usersActions } from 'entities/Users';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsersStateSelector, usersActions } from 'entities/Users';
 import { Portal } from 'shared/ui/Portal/Portal';
 import { Modal } from 'shared/ui/Modal/Modal';
 import { SearchSort } from 'shared/ui/SearchSort/SearchSort';
+import cls from './Search.module.scss';
+import { useTranslation } from 'react-i18next';
+import { SortTypes } from 'entities/Users/model/slices/usersSlice';
 
 interface SearchProps {
   className?: string;
@@ -15,10 +17,14 @@ interface SearchProps {
 
 export const Search = (props: SearchProps) => {
   const { className } = props;
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [modalIsActive, setModalIsActive] = useState<boolean>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isActiveSortBtn, setIsActiveSortBtn] = useState<boolean>(null);
-  const dispatch = useDispatch();
+  const allUsersState = useSelector(getUsersStateSelector);
+  const sortBy = allUsersState.sortBy;
+  const searchValue = allUsersState.searchInUsers;
 
   const filterUsers = useCallback(
     (searchValue: string) => {
@@ -44,11 +50,12 @@ export const Search = (props: SearchProps) => {
         variation={InputVariations.SEARCH}
         type="search"
         setIsActive={setIsActive}
-        placeholder="Введи имя, тег, почту..."
+        placeholder={t('Введи имя, тег, почту...')}
         searchFilter={filterUsers}
+        stateValue={searchValue}
       />
       <svg
-        className={classNames(cls.searchIcon, { [cls.active]: isActive }, [])}
+        className={classNames(cls.searchIcon, { [cls.active]: isActive || searchValue }, [])}
         width="20"
         height="20"
         viewBox="0 0 21 21"
@@ -61,7 +68,7 @@ export const Search = (props: SearchProps) => {
         onClick={handleOpenModal}
       >
         <svg
-          className={classNames('', { [cls.sortBtnActive]: isActiveSortBtn }, [])}
+          className={classNames('', { [cls.sortBtnActive]: sortBy === SortTypes.byDate }, [])}
           width="20.000000"
           height="12.000000"
           viewBox="0 0 20 12"

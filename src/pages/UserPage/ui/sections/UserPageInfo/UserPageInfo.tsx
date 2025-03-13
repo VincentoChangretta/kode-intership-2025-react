@@ -4,6 +4,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { getUsersStateSelector } from 'entities/Users';
 import { formatDate } from 'shared/lib/formatDate/formatDate';
 import { calculateAge } from 'shared/lib/calculateAge/calculateAge';
+import { useTranslation } from 'react-i18next';
 
 interface UserPageInfoProps {
   className?: string;
@@ -13,6 +14,7 @@ export const UserPageInfo = (props: UserPageInfoProps) => {
   const { className } = props;
   const allUsersState = useSelector(getUsersStateSelector);
   const activeUser = allUsersState.activeUser;
+  const { t } = useTranslation('user');
   return (
     <section className={classNames(cls.UserPageInfo, {}, [className])}>
       <div className={cls.info}>
@@ -21,9 +23,9 @@ export const UserPageInfo = (props: UserPageInfoProps) => {
             <svg className={cls.icon} viewBox="0 0 20.0272 19.1337">
               <path d="M19.99 7.23C19.93 7.05 19.81 6.89 19.66 6.77C19.51 6.65 19.32 6.58 19.13 6.56L13.44 5.73L10.89 0.56C10.81 0.39 10.68 0.25 10.52 0.15C10.36 0.05 10.18 0 9.99 0C9.8 0 9.62 0.05 9.46 0.15C9.3 0.25 9.17 0.39 9.09 0.56L6.54 5.72L0.85 6.56C0.66 6.59 0.49 6.66 0.35 6.78C0.2 6.9 0.1 7.06 0.04 7.24C-0.01 7.41 -0.02 7.6 0.02 7.77C0.07 7.95 0.16 8.11 0.29 8.24L4.42 12.24L3.42 17.92C3.38 18.11 3.39 18.3 3.46 18.48C3.53 18.66 3.65 18.82 3.8 18.93C3.96 19.05 4.14 19.12 4.34 19.13C4.53 19.14 4.72 19.09 4.89 19L9.99 16.33L15.09 19C15.23 19.08 15.39 19.12 15.55 19.12C15.76 19.12 15.97 19.05 16.14 18.93C16.29 18.82 16.41 18.66 16.48 18.49C16.56 18.31 16.57 18.12 16.54 17.93L15.54 12.25L19.67 8.25C19.81 8.13 19.92 7.97 19.98 7.79C20.03 7.6 20.04 7.41 19.99 7.23ZM13.84 11.23C13.72 11.34 13.64 11.48 13.59 11.63C13.54 11.79 13.52 11.95 13.55 12.11L14.27 16.31L10.51 14.31C10.36 14.24 10.2 14.2 10.04 14.2C9.88 14.2 9.71 14.24 9.57 14.31L5.81 16.31L6.53 12.11C6.55 11.95 6.54 11.79 6.49 11.63C6.44 11.48 6.35 11.34 6.24 11.23L3.24 8.23L7.45 7.62C7.61 7.6 7.76 7.53 7.9 7.44C8.03 7.34 8.14 7.22 8.21 7.07L9.99 3.26L11.87 7.08C11.94 7.23 12.05 7.35 12.18 7.45C12.31 7.54 12.47 7.61 12.63 7.63L16.84 8.24L13.84 11.23Z" />
             </svg>
-            <p className={cls.date}>{formatDate(activeUser.birthday)}</p>
+            <p className={cls.date}>{formatDate(activeUser.birthday, t)}</p>
           </div>
-          <p>{calculateAge(activeUser.birthday)}</p>
+          <p>{calculateAge(activeUser.birthday, t)}</p>
         </div>
         <div>
           <div className={cls.infoBoxInner}>

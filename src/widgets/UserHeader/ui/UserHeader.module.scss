@@ -49,3 +49,10 @@
     font: var(--font-lg);
     color: var(--color-gray);
 }
+
+.avatarNotFound {
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
