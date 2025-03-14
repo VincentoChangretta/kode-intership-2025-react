@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/KODE-INTERSHIP-ONLINE/',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
@@ -18,9 +17,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-  },
-  server: {
-    host: true,
   },
   publicDir: 'public',
 });
