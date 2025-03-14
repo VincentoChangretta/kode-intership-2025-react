@@ -13,6 +13,8 @@ import { sortUsersBy } from 'shared/lib/sortBy/sortBy';
 import { updateDepartmentUsers } from '../model/actionCreators/UpdateDepartmentUsers';
 import { isBirthdayThisYear } from 'shared/lib/isBirthdayThisYear/isBirthdayThisYear';
 import { FetchError } from './FetchError/FetchError';
+import { usePullToRefresh } from 'shared/hooks/usePullToRefresh/usePullToRefresh';
+import { PullToRefreshLoader } from 'shared/ui/PullToRefreshLoader/PullToRefreshLoader';
 
 interface UsersProps {
   className?: string;
@@ -27,10 +29,12 @@ export const Users = (props: UsersProps) => {
   >(null);
   const [nextYearUsers, setNextYearUsers] = useState<UserSchema[]>([]);
   const [thisYearUsers, setThisYearUsers] = useState<UserSchema[]>([]);
+  const [showUsers, setShowUsers] = useState<boolean>(false);
 
   const sortBy = allUsersState.sortBy;
   const isLoading = allUsersState.isLoading;
   const searchValue = allUsersState.searchInUsers;
+  const refreshState = allUsersState.refresh;
 
   const hasFetchedData = allUsersState.hasFetched;
   const activeDepartment = allUsersState.activeDepartment;
@@ -41,6 +45,10 @@ export const Users = (props: UsersProps) => {
   const previousSortByRef = useRef(sortBy);
 
   const previousActiveDepartment = useRef(activeDepartment);
+  const refresh = () => {
+    dispatch(usersActions.setRefresh(true));
+  };
+  const { isRefreshing, pullDistance } = usePullToRefresh(refresh);
 
   useEffect(() => {
     let sortedArr: UserSchema[] = [];
@@ -128,15 +136,32 @@ export const Users = (props: UsersProps) => {
     }
   }, [activeDepartment]);
 
-  if (hasFetchedData === false) return <FetchError />;
+  useEffect(() => {
+    if (currentDepartmentUsersDataArray?.length) {
+      setShowUsers(true);
+    }
+  }, [currentDepartmentUsersDataArray]);
 
-  if (currentDepartmentUsersDataArray?.length === 0 && !isLoading) {
+  useEffect(() => {
+    if (refreshState) {
+      // очистка после обновления
+      dispatch(usersActions.setRefresh(false));
+    }
+  }, [refreshState]);
+
+  // при ошибках && пустых данных
+  if (hasFetchedData === false) return <FetchError />;
+  if (currentDepartmentUsersDataArray?.length === 0 && !isLoading && !showUsers) {
     return <UsersEmptyList />;
   }
 
   return (
     <div className={classNames(cls.usersSection, {}, [className])}>
-      <ul>
+      <PullToRefreshLoader className={isRefreshing && cls.loader} pullDistance={pullDistance} />
+      <ul
+        className={cls.userList}
+        style={{ marginTop: `${Math.max(0, Math.min(80, pullDistance))}px` }}
+      >
         {isLoading ? (
           <ListUserCardLoader />
         ) : (

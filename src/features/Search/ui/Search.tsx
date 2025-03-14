@@ -1,6 +1,6 @@
 import { Input, InputVariations } from 'shared/ui/Input/Input';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsersStateSelector, usersActions } from 'entities/Users';
@@ -10,6 +10,10 @@ import { SearchSort } from 'shared/ui/SearchSort/SearchSort';
 import cls from './Search.module.scss';
 import { useTranslation } from 'react-i18next';
 import { SortTypes } from 'entities/Users/model/slices/usersSlice';
+import {
+  MOBILE_MAX_SCREEN_WIDTH,
+  useScreenWitdh,
+} from 'shared/hooks/useScreenWidth/useScreenWidth';
 
 interface SearchProps {
   className?: string;
@@ -19,9 +23,9 @@ export const Search = (props: SearchProps) => {
   const { className } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const screenWidth = useScreenWitdh();
   const [modalIsActive, setModalIsActive] = useState<boolean>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isActiveSortBtn, setIsActiveSortBtn] = useState<boolean>(null);
   const allUsersState = useSelector(getUsersStateSelector);
   const sortBy = allUsersState.sortBy;
   const searchValue = allUsersState.searchInUsers;
@@ -35,14 +39,7 @@ export const Search = (props: SearchProps) => {
 
   const handleOpenModal = useCallback(() => {
     setModalIsActive(true);
-    setIsActiveSortBtn(true);
   }, []);
-
-  useEffect(() => {
-    if (!modalIsActive) {
-      setIsActiveSortBtn(false);
-    }
-  }, [modalIsActive]);
 
   return (
     <div className={classNames(cls.search, {}, [className])}>
@@ -77,7 +74,15 @@ export const Search = (props: SearchProps) => {
         </svg>
       </Button>
       <Portal>
-        <Modal className={cls.modal} isActive={modalIsActive} onClose={setModalIsActive}>
+        <Modal
+          className={classNames(
+            cls.modal,
+            { [cls.modalForMobile]: screenWidth < MOBILE_MAX_SCREEN_WIDTH },
+            [],
+          )}
+          isActive={modalIsActive}
+          onClose={setModalIsActive}
+        >
           <SearchSort modalOnClose={setModalIsActive} />
         </Modal>
       </Portal>

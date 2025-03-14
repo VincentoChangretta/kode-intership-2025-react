@@ -9,12 +9,31 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
+    text-wrap: balance;
+    z-index: calc(var(--modalBg-zIndex) - 1);
 }
+
 .inner {
     position: absolute;
     left: 0;
     top: 44px;
     color: var(--color-errorText);
+}
+
+.offlinePreloaderForMobile {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    translate: -50% 0;
+    padding: 0 var(--container-padding);
+    z-index: calc(var(--modalBg-zIndex) - 1);
+}
+
+.innerForMobile {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    text-wrap: balance;
 }
 
 .online,

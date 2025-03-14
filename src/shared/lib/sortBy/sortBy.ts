@@ -8,6 +8,9 @@ export const sortUsersBy = (
   sortedArrLink: UserSchema[],
   currentDepartamentUsers: UserSchema[],
 ): UserSchema[] => {
+  if (currentDepartamentUsers.length === 0) {
+    return currentDepartamentUsers;
+  }
   switch (sortBy) {
     case SortTypes.alphabetically:
       sortedArrLink = sortByAlphabet(currentDepartamentUsers);

@@ -7,6 +7,7 @@ import { getActiveUserSelector } from '../getActiveUserSelector/getActiveUserSel
 import { getSortBySelector } from '../getSortBySelector/getSortBySelector';
 import { getPrevDepartmentDataSelector } from '../getPrevDepartmentDataSelector/getPrevDepartmentDataSelector';
 import { getHasFetchedSelector } from '../getHasFetchedSelector/getHasFetchedSelector';
+import { getUsersRefreshSelector } from '../getUsersRefreshSelector/getUsersRefreshSelector';
 
 export const getUsersStateSelector = createSelector(
   getUsersSelector,
@@ -16,5 +17,6 @@ export const getUsersStateSelector = createSelector(
   getSortBySelector,
   getPrevDepartmentDataSelector,
   getHasFetchedSelector,
+  getUsersRefreshSelector,
   (users: UsersState) => users,
 );

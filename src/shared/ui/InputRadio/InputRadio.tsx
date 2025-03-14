@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
-import { useInput } from 'shared/hooks/useInput';
+import { useInput } from 'shared/hooks/useInput/useInput';
 import cls from './InputRadio.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 

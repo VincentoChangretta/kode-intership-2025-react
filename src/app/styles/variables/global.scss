@@ -37,6 +37,7 @@
     //original
     --header-height: 145px;
     --header-marginBottom: 16px;
+    --container-padding: 16px;
     --fullHeight-minusHeader: calc(100svh - (var(--header-height) + var(--header-marginBottom)));
     --avatar-Radius: 50%;
     --small-Radius: calc(var(--std-Radius) - var(--std-padding));

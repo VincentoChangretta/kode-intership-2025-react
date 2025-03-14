@@ -1,21 +1,24 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-        app: '/src/app',
-        entities: '/src/entities',
-        features: '/src/features',
-        pages: '/src/pages',
-        shared: '/src/shared',
-        widgets: '/src/widgets',
+      app: '/src/app',
+      entities: '/src/entities',
+      features: '/src/features',
+      pages: '/src/pages',
+      shared: '/src/shared',
+      widgets: '/src/widgets',
     },
-},
-build: {
+  },
+  build: {
     outDir: 'dist',
-    emptyOutDir: true, 
-},
-})
+    emptyOutDir: true,
+  },
+  server: {
+    host: true,
+  },
+});

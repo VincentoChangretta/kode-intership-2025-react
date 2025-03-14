@@ -1,10 +1,10 @@
 import { UserSchema } from 'entities/Users';
+import { AllDepartments } from 'shared/config/navDepartmentConfig/navDepartmentConfig';
 
-export const saveDataToLocalStorage = (key: string, data: UserSchema[]) => {
-  try {
-    const serializedData = JSON.stringify(data);
-    localStorage.setItem(`data-${key}`, serializedData);
-  } catch (error) {
-    throw new Error(error);
-  }
+export const storedDataName = (department: AllDepartments) => {
+  return `data-${department}`;
+};
+
+export const saveDataToLocalStorage = (department: AllDepartments, data: UserSchema[]) => {
+  localStorage.setItem(storedDataName(department), JSON.stringify(data));
 };

@@ -27,6 +27,7 @@ export const ListUserCard = (props: ListUserCardProps) => {
         <div className={cls.userInner}>
           <div className={cls.img}>
             <img
+              className="img"
               src={user.avatarUrl}
               alt={`avatar-${user.firstName}`}
               onError={handleImageError}

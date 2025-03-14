@@ -6,7 +6,6 @@ import { Navigation } from 'widgets/Navigation';
 import { NetworkStatusPreloader } from '../NetworkStatusPreloader/NetworkStatusPreloader';
 import { LangSwitcher } from 'widgets/LangSwitcher';
 import { useTranslation } from 'react-i18next';
-import { useNetworkStatus } from 'shared/hooks/useNetworkStatus';
 import { useState } from 'react';
 
 interface HeaderProps {

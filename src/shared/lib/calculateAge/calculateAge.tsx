@@ -1,6 +1,4 @@
-import { TFunction } from 'i18next';
-
-export const calculateAge = (birthdate: string, t: TFunction): string => {
+export const calculateAge = (birthdate: string): string => {
   const currentDate = new Date();
   const birthDate = new Date(birthdate);
 
@@ -17,11 +15,11 @@ export const calculateAge = (birthdate: string, t: TFunction): string => {
 
   let ageString = `${age} `;
   if (age % 10 === 1 && age % 100 !== 11) {
-    ageString += t('год');
+    ageString += 'год';
   } else if (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)) {
-    ageString += t('года');
+    ageString += 'года';
   } else {
-    ageString += t('лет');
+    ageString += 'лет';
   }
 
   return ageString;

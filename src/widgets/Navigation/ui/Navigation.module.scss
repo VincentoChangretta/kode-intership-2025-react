@@ -4,6 +4,13 @@
 
 .navigationList {
     display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+
+.navigationList::-webkit-scrollbar {
+    display: none; /* WebKit-браузеры */
 }
 
 .navigationListItem {
@@ -11,6 +18,7 @@
     padding: 8px 12px;
     cursor: pointer;
     transition: 0.1s;
+    text-wrap: nowrap;
 }
 
 .navigationListItem::after {

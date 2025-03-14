@@ -1,4 +1,4 @@
-import { useInput } from 'shared/hooks/useInput';
+import { useInput } from 'shared/hooks/useInput/useInput';
 import cls from './Input.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, { InputHTMLAttributes, useCallback, useEffect } from 'react';

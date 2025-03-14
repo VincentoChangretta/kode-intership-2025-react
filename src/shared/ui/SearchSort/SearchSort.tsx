@@ -33,7 +33,7 @@ export const SearchSort = (props: SearchSortProps) => {
   }, []);
 
   return (
-    <article className={classNames(cls.SearchSort, {}, [className])}>
+    <article className={classNames(cls.searchSort, {}, [className])}>
       <div className={cls.titleBox}>
         <h4 className={cls.title}>{t('Сортировка')}</h4>
         <CloseBtn className={cls.closeBtn} onClose={modalOnClose} />

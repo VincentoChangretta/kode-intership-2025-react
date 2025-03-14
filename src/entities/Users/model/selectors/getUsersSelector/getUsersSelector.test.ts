@@ -2,6 +2,7 @@ import { StateSchema } from 'app/providers/StoreProvider';
 import { getUsersSelector } from './getUsersSelector';
 import { AllDepartments } from 'shared/config/navDepartmentConfig/navDepartmentConfig';
 import { SortTypes } from '../../slices/usersSlice';
+import { DeepPartial } from 'shared/config/deepPartial/deepPartial';
 
 describe('состояние users', () => {
   test('состояние users', () => {
@@ -40,9 +41,9 @@ describe('состояние users', () => {
       },
     };
 
-    const state: StateSchema = {
+    const state: DeepPartial<StateSchema> = {
       users: usersState,
     };
-    expect(getUsersSelector(state)).toEqual(usersState);
+    expect(getUsersSelector(state as StateSchema)).toEqual(usersState);
   });
 });

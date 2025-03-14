@@ -28,6 +28,24 @@
     padding: 21px 16px;
 }
 
+.modalForMobile {
+    max-width: 70%;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    translate: -50% 0;
+    border-radius: var(--std-Radius) var(--std-Radius) 0 0;
+}
+
+@media (width < 700px) {
+    .modalForMobile {
+        max-width: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        translate: 0;
+    }
+}
 .sortBtnActive {
     fill: var(--purple-color) !important;
 }

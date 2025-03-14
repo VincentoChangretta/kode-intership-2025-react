@@ -1,12 +1,16 @@
-.user {
-}
-
 .yearBorder {
     position: relative;
     margin: 30px 24px;
-    width: 100%;
     height: 1px;
     background-color: var(--icon-color);
+}
+
+.usersSection {
+    position: relative;
+}
+
+.userList {
+    transition: 0.1s linear;
 }
 
 .year {
@@ -19,4 +23,9 @@
     color: var(--icon-color);
     background: var(--main-bg);
     text-align: center;
+}
+
+.loader {
+    opacity: 1 !important;
+    visibility: visible !important;
 }

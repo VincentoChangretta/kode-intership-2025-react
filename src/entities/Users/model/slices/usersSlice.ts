@@ -11,6 +11,7 @@ export enum SortTypes {
 }
 
 export interface UsersState {
+  refresh: boolean;
   sortBy: SortTypes;
   hasFetched: boolean;
   isLoading: boolean;
@@ -24,6 +25,7 @@ export interface UsersState {
 }
 
 const initialState: UsersState = {
+  refresh: null,
   hasFetched: null,
   isLoading: null,
   sortBy: (localStorage.getItem('sortBy') as SortTypes) || SortTypes.alphabetically,
@@ -96,6 +98,9 @@ export const usersSlice = createSlice({
     },
     setHasFetched(state, action: PayloadAction<boolean>) {
       state.hasFetched = action.payload;
+    },
+    setRefresh(state, action: PayloadAction<boolean>) {
+      state.refresh = action.payload;
     },
   },
 });

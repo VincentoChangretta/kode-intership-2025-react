@@ -1,26 +1,21 @@
-import { saveTimeToLocalStorage } from './saveTimeToLocalStorage';
 import { AllDepartments } from 'shared/config/navDepartmentConfig/navDepartmentConfig';
+import { saveTimeToLocalStorage, storedTimeName } from './saveTimeToLocalStorage';
 
 beforeEach(() => {
-  localStorage.clear();
-  jest.spyOn(Date, 'now').mockImplementation(() => 1000000000000);
+  Storage.prototype.setItem = jest.fn();
 });
 
-describe('saveTimeToLocalStorage', () => {
-  test('Должен сохранять правильный time в localStorage', () => {
-    saveTimeToLocalStorage(AllDepartments.All);
-    const storedTime = localStorage.getItem(AllDepartments.All);
-    expect(storedTime).not.toBeNull();
-    const parsedTime = JSON.parse(storedTime);
-    expect(parsedTime).toBe(1000000000000);
-  });
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 
-  test('Должен корректно сохранять time для другого департамента', () => {
-    const department = AllDepartments.Analytics;
-    saveTimeToLocalStorage(department);
-    const storedTime = localStorage.getItem(department);
-    expect(storedTime).not.toBeNull();
-    const parsedTime = JSON.parse(storedTime);
-    expect(parsedTime).toBe(1000000000000);
-  });
+test('должен сохранять метку времени в localStorage с правильным ключом для указанного департамента', () => {
+  const department: AllDepartments = AllDepartments.All;
+  const fakeTimestamp = 1616161616161;
+  jest.spyOn(Date, 'now').mockReturnValue(fakeTimestamp);
+  saveTimeToLocalStorage(department);
+  expect(localStorage.setItem).toHaveBeenCalledWith(
+    storedTimeName(department),
+    JSON.stringify(fakeTimestamp),
+  );
 });

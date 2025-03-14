@@ -15,6 +15,11 @@ export const UserPageInfo = (props: UserPageInfoProps) => {
   const allUsersState = useSelector(getUsersStateSelector);
   const activeUser = allUsersState.activeUser;
   const { t } = useTranslation('user');
+
+  const ageString = calculateAge(activeUser.birthday);
+  const [age, ageWord] = ageString.split(' ');
+  const translatedAge = `${age} ${t(ageWord)}`;
+
   return (
     <section className={classNames(cls.UserPageInfo, {}, [className])}>
       <div className={cls.info}>
@@ -25,7 +30,7 @@ export const UserPageInfo = (props: UserPageInfoProps) => {
             </svg>
             <p className={cls.date}>{formatDate(activeUser.birthday, t)}</p>
           </div>
-          <p>{calculateAge(activeUser.birthday, t)}</p>
+          <p>{translatedAge}</p>
         </div>
         <div>
           <div className={cls.infoBoxInner}>

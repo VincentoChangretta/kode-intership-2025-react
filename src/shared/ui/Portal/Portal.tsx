@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 interface PortalProps {
   children: ReactNode;
   element?: HTMLElement;
+  // keepMounted?:
 }
 
 export const Portal = (props: PortalProps) => {

@@ -9,6 +9,9 @@ const config: Config = {
   modulePaths: ['<rootDir>src'],
   testMatch: ['<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'],
   rootDir: '../../',
+  moduleNameMapper: {
+    '^entities/(.*)$': '<rootDir>/src/entities/$1',
+  },
 };
 
 export default config;
