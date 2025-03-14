@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="app">
       <Suspense fallback="">
-        <AppRouter />
+      <AppRouter />
       </Suspense>
     </div>
   );
