@@ -7,8 +7,6 @@ interface ThemeProviderProps {
 }
 const initialTheme = setInitialTheme();
 
-console.log(initialTheme);
-
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const { children } = props;
   const [theme, setTheme] = useState<Themes>(initialTheme);
